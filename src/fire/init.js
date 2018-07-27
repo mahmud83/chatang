@@ -1,13 +1,14 @@
 import firebase from 'firebase'
 import firestore from 'firebase/firestore'
+require('dotenv').config()
 
 var config = {
-  apiKey: 'AIzaSyC5Tp3BYD0ZsVYVAc20PEIKQeO49lWdgk0',
-  authDomain: 'chatang-01.firebaseapp.com',
-  databaseURL: 'https://chatang-01.firebaseio.com',
-  projectId: 'chatang-01',
-  storageBucket: 'chatang-01.appspot.com',
-  messagingSenderId: '307391607662'
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  databaseURL: process.env.databaseURL,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId
 }
 
 const firebaseApp = firebase.initializeApp(config)
