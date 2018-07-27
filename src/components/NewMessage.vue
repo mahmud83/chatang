@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import firebaseApp from '../fire/init'
+
 export default {
   name: 'NewMessage',
   props: ['name'],
@@ -18,7 +20,14 @@ export default {
   },
   methods: {
     addMessage() {
-      console.log(this.newMessage, this.name, Date.now())
+      let chatDb = firebaseApp.collection('chat')
+      let chatData = {
+        message: this.newMessage,
+        name: this.name,
+        time: Date.now()
+      }
+      chatDb.add(chatData)
+      this.newMessage = ''
     }
   }
 }
