@@ -35,9 +35,10 @@ export default {
       newMessage: null
     }
   },
-  mounted() {
-    this.getChat()
-    this.getRealTimeChat()
+  firestore () {
+    return {
+      chats: db.collection('chat').orderBy('createdAt')
+    }
   },
   methods: {
     addMessage() {
@@ -50,32 +51,32 @@ export default {
       chatDb.add(chatData)
       this.newMessage = ''
     },
-    getChat () {
-      const chatRef = db.collection('chat').orderBy('time')
-      var getChat = chatRef.get()
-      .then(snapshot => {
-        let chats = [];
-        snapshot.forEach(doc => {
-          chats.push(doc.data())
-        });
-        this.chats = chats
-      })
-      .catch(err => {
-        console.log('Error getting document', err);
-      });
-    },
-    getRealTimeChat () {
-      const chatRef = db.collection('chat').orderBy('time')
-      let chats = this.chats
-      chatRef.onSnapshot(function(snapshot) {
-        snapshot.forEach(doc => {
-          console.log(doc.data())
-          chats.push(doc.data())
-          this.chats = chats
-        })
-      })
-      console.log(this.chats)
-    },
+    // getChat () {
+    //   const chatRef = db.collection('chat').orderBy('time')
+    //   var getChat = chatRef.get()
+    //   .then(snapshot => {
+    //     let chats = [];
+    //     snapshot.forEach(doc => {
+    //       chats.push(doc.data())
+    //     });
+    //     this.chats = chats
+    //   })
+    //   .catch(err => {
+    //     console.log('Error getting document', err);
+    //   });
+    // },
+    // getRealTimeChat () {
+    //   const chatRef = db.collection('chat').orderBy('time')
+    //   let chats = this.chats
+    //   chatRef.onSnapshot(function(snapshot) {
+    //     snapshot.forEach(doc => {
+    //       console.log(doc.data())
+    //       chats.push(doc.data())
+    //       this.chats = chats
+    //     })
+    //   })
+    //   console.log(this.chats)
+    // },
     deleteLocation (id) {
       db.collection('chat').doc(id).delete()
     }
